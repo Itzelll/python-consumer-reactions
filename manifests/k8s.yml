@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-consumer
+  name: {model_name}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka-consumer
+      app: {model_name}
   template:
     metadata:
       labels:
-        app: kafka-consumer
+        app: {model_name}
     spec:
       containers:
-      - image: docker.io/{docker_user}/kafka-consumer:{github.sha}
-        name: kafka-consumer
+      - image: docker.io/{docker_user}/{model_name}:{github.sha}
+        name: {model_name}
 #        envFrom:
 #        - configMapRef:
 #            name: adsoftsito-config
@@ -29,13 +29,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafka-consumer
+  name: {model_name}
   annotations:
     dev.okteto.com/auto-ingress: "true"
 spec:
   type: ClusterIP  
   ports:
-  - name: "kafka-consumer"
+  - name: "python-consumer"
     port: 8081
   selector:
-    app: kafka-consumer
+    app: {model_name}
