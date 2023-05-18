@@ -13,7 +13,7 @@ spec:
         app: {model_name}
     spec:
       containers:
-      - image: docker.io/{docker_user}/{model_name}:{github.sha}
+      - image: docker.io/mmitzel/{model_name}:{github.sha}
         name: {model_name}
 #        envFrom:
 #        - configMapRef:
