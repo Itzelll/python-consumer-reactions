@@ -11,7 +11,8 @@ import subprocess
 
 
 # replace here with your mongodb url 
-uri = "mongodb+srv://adsoft:adsoft-sito@cluster0.kzghgph.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://itzelll:NtWMhS9DNb1RzPp0@comidas.tv394y9.mongodb.net/?retryWrites=true&w=majority"
+#uri = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2"
 
 
 # Create a new client and connect to the server
@@ -37,7 +38,8 @@ except:
     print("Could not connect to MongoDB")
 
 consumer = KafkaConsumer('test',bootstrap_servers=[
-     'my-kafka-0.my-kafka-headless.kafka-adsoftsito.svc.cluster.local:9092'
+    'comida-kafka-0.comida-kafka-headless.itzel2-itzelll.svc.cluster.local:9092'
+     #'localhost:9092'
     ])
 # Parse received data from Kafka
 for msg in consumer:
