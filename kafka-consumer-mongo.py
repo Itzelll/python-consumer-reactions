@@ -43,7 +43,7 @@ consumer = KafkaConsumer(
         #'localhost:9092'
     ],
 )
-# Parse received data from Kafka
+
 for msg in consumer:
     record = json.loads(msg.value)
     print(record)
@@ -53,34 +53,37 @@ for msg in consumer:
 
     # Create dictionary and ingest data into MongoDB
     try:
-        reaction_rec = {"userId": userId, "objectId": objectId, "reactionId": reactionId}
-        print(reaction_rec)
-        reaction_id = db.memes_info.insert_one(reaction_rec)
-        print("Data inserted with record ids", reaction_id)
-
-        subprocess.call(["sh", "./test.sh"])
-
+       reaction_rec = {
+            'userId': userId,
+            'objectId': objectId,
+            'reactionId': reactionId
+        }
+       print (reaction_rec)
+       reaction_id = db.memes_reactions.insert_one(reaction_rec)
+       print("Data inserted with record ids", reaction_id)
     except:
-        print("Could not insert into MongoDB")
+       print("Could not insert into MongoDB")
 
-    # Create dictionary and ingest data into MongoDB
+  # Create bdnosql_sumary and insert groups into mongodb
     try:
-        agg_result = db.memes_reactions.aggregate(
-            [
-                {
-                    "$group": {
-                        "_id": {"objectId": "$objectId", "reactionId": "$reactionId"},
-                        "n": {"$sum": 1},
-                    }
-                }
-            ]
-        )
-        db.memes_summary_reactions.delete_many({})
+        agg_result = db.memes_reactions.aggregate([
+        {
+            "$group": {
+                "_id": {
+                    "objectId": "$objectId",
+                    "reactionId": "$reactionId"
+                },
+                "n": {"$sum": 1}
+            }
+        }
+    ])
+        db.memes_sumaryReactions.delete_many({})
         for i in agg_result:
             print(i)
-            summary_id = db.memes_summary_reactions.insert_one(i)
-            print("Reaction inserted with record ids", summary_id)
-
+            sumary_id = db.memes_sumaryReactions.insert_one(i)
+            print("Sumary Reactions inserted with record ids: ", sumary_id)
+            
     except Exception as e:
-        print(f"group by caught {type(e)}: ")
+        print(f'group vy cought {type(e)}: ')
         print(e)
+
