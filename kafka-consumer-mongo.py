@@ -53,10 +53,10 @@ for msg in consumer:
 
     # Create dictionary and ingest data into MongoDB
     try:
-        meme_rec = {"userId": userId, "objectId": objectId, "reactionId": reactionId}
-        print(meme_rec)
-        meme_id = db.memes_info.insert_one(meme_rec)
-        print("Data inserted with record ids", meme_id)
+        reaction_rec = {"userId": userId, "objectId": objectId, "reactionId": reactionId}
+        print(reaction_rec)
+        meme_id = db.memes_info.insert_one(reaction_rec)
+        print("Data inserted with record ids", reaction_id)
 
         subprocess.call(["sh", "./test.sh"])
 
