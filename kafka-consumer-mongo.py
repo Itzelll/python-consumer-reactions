@@ -55,7 +55,7 @@ for msg in consumer:
     try:
         reaction_rec = {"userId": userId, "objectId": objectId, "reactionId": reactionId}
         print(reaction_rec)
-        meme_id = db.memes_info.insert_one(reaction_rec)
+        reaction_id = db.memes_info.insert_one(reaction_rec)
         print("Data inserted with record ids", reaction_id)
 
         subprocess.call(["sh", "./test.sh"])
