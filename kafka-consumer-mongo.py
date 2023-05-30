@@ -75,7 +75,7 @@ for msg in consumer:
                 }
             ]
         )
-        db.memes_summary.delete_many({})
+        db.memes_summary_reactions.delete_many({})
         for i in agg_result:
             print(i)
             summary_id = db.memes_summary_reactions.insert_one(i)
